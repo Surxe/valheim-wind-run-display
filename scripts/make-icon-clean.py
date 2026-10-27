@@ -4,11 +4,11 @@ light and dark backgrounds.
 
 Masks are found per element from colour, not hardcoded positions: the white title
 and orange label by their text rows, the cloak as the largest olive/bone blob between
-them (holes filled so its dark markings stay). Tuned on docs/icon-source.png.
+them (holes filled so its dark markings stay). Tuned on assets/icon-source.png.
 
 Needs Pillow, numpy and scipy, e.g. in a venv (.venv/ is gitignored):
     python3 -m venv .venv && .venv/bin/pip install pillow numpy scipy
-    .venv/bin/python scripts/make-icon-clean.py docs/icon-source.png icon-clean.png
+    .venv/bin/python scripts/make-icon-clean.py assets/icon-source.png assets/icon-clean.png
 
 usage: make-icon-clean.py <source.png> <out.png> [debug_dir]
   debug_dir: also writes the per-element masks there (4x, nearest) for tuning.

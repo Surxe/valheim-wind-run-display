@@ -1,9 +1,14 @@
-# valheim-wind-run-display
+# Wind Run Display
 
 Client-side BepInEx mod for Valheim that shows how much the **Wind run** effect
 (Asksvin cloak) is currently giving you, based on wind direction and strength.
 
+[Thunderstore](https://thunderstore.io/c/valheim/p/Surxe/WindRunDisplay/) |
+[GitHub](https://github.com/Surxe/valheim-wind-run-display)
+
 ![Wind run speed climbing from +0% to +25% as the player turns to run with the wind](https://raw.githubusercontent.com/Surxe/valheim-wind-run-display/main/docs/wind-run.gif)
+
+## Features
 
 - Under the Wind run icon in the status-effect bar: the live speed bonus, by default
   `Speed: +18%`. Which lines appear, their order, their labels, and the font size are all
@@ -15,10 +20,8 @@ Client-side BepInEx mod for Valheim that shows how much the **Wind run** effect
   ```
 - In the effect's tooltip: max and current values for speed and stamina; the vanilla
   tooltip lists neither.
-
-While moving, the number uses your move direction (the same vector the game uses).
-While standing still, it previews the camera's facing, i.e. what you'd get by running
-forward.
+- While moving, the number uses your actual move direction. While standing still, it
+  previews your camera's facing, so you can turn to find the best heading before running.
 
 **Compatibility:** Valheim 1.0 (Deep North), BepInEx pack 5.4.2350+. Client-side only;
 nothing to install on servers.
@@ -26,50 +29,17 @@ nothing to install on servers.
 **Made by AI:** this mod (code, docs, icon and packaging) was written by an AI coding
 assistant (Claude), directed and play-tested by the author.
 
-## How Wind run works (from `assembly_valheim`)
-
-`SE_Stats.ModifySpeed` and `SE_Stats.ModifyRunStaminaDrain`:
-
-```
-factor = (dot(moveDir, windDir) + 1) / 2 * windIntensity * modifier
-speed *= 1 + factor          // modifier = m_windMovementModifier
-runDrain *= 1 + factor       // modifier = m_windRunStaminaModifier
-```
-
-So a full tailwind at max intensity gives the full modifier, a crosswind gives half,
-and a headwind gives nothing (never a penalty). The modifiers are read from the live
-status effect, not hardcoded.
-
-## Build
-
-Needs the .NET SDK and copies of the game's DLLs: `valheim_Data/Managed/*.dll` and
-`BepInEx/core/*.dll`, in a folder laid out as `Managed/` and `BepInEx-core/`. Point the
-build at it by copying `local.props.example` to `local.props` (gitignored) and setting
-`GameRefs`, or pass `-p:GameRefs=<dir>`:
-
-```
-dotnet build -c Release WindRunDisplay.csproj                     # -> bin/Release/WindRunDisplay.dll
-dotnet test tests/WindRunDisplay.Tests.csproj                     # Unity-free math/format tests
-```
-
 ## Install
 
-Copy `bin/Release/WindRunDisplay.dll` into `<Valheim>/BepInEx/plugins/` and restart the
-game.
-
-### Hot reload while developing
-
-With [ScriptEngine](https://github.com/BepInEx/BepInEx.Debug) installed (set
-`LoadOnStart` and `EnableFileSystemWatcher` to `true` in its config), copy the DLL into
-`<Valheim>/BepInEx/scripts/` instead. ScriptEngine reloads it in the running game a few
-seconds after the copy, or on its reload key (F6 by default). The plugin unpatches itself
-in `OnDestroy`, so reloads don't stack patches. Keep only one copy (plugins or scripts),
-or the patches apply twice.
+- **Mod manager:** install from
+  [Thunderstore](https://thunderstore.io/c/valheim/p/Surxe/WindRunDisplay/) with r2modman
+  or the Thunderstore Mod Manager.
+- **Manual:** copy `WindRunDisplay.dll` into `<Valheim>/BepInEx/plugins/` and restart the
+  game.
 
 ## Config
 
-`BepInEx/config/surxe.WindRunDisplay.cfg` (re-read on a ScriptEngine reload, or on game
-start):
+`BepInEx/config/surxe.WindRunDisplay.cfg`, created on first launch:
 
 | Section | Key | Default | Effect |
 |---------|-----|---------|--------|
@@ -83,8 +53,9 @@ start):
 A label without `%s` gets the value appended after a space. Unknown `Fields` entries are
 skipped with a warning in the BepInEx log.
 
-## Testing in game
+## More
 
-In a local (self-hosted) world (`wind` is server-only, so not on a dedicated server),
-press F5 and run `devcommands`, then `wind <angle> <intensity>` (e.g. `wind 0 1`) to set
-fixed wind, and `resetwind` to go back to normal weather.
+- [How Wind run works](https://github.com/Surxe/valheim-wind-run-display/blob/main/docs/how-it-works.md):
+  the game's formula, and how the mod reads and draws it.
+- [Development](https://github.com/Surxe/valheim-wind-run-display/blob/main/DEVELOPMENT.md):
+  building, hot reload, testing in game, icons and releasing.
