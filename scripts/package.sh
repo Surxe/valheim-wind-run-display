@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Builds the Thunderstore package: dist/WindRunDisplay-<version>.zip containing
-#   manifest.json, README.md, CHANGELOG.md, icon.png (from icon-clean.png),
+#   manifest.json, README.md, CHANGELOG.md, icon.png (from assets/icon-clean.png),
 #   plugins/WindRunDisplay.dll
 # Fails if the version differs between manifest.json, src/Plugin.cs and the csproj,
 # or if the tests fail.
@@ -28,7 +28,7 @@ stage="$(mktemp -d)"
 trap 'rm -rf "$stage"' EXIT
 mkdir -p "$stage/plugins"
 cp manifest.json README.md CHANGELOG.md "$stage/"
-cp icon-clean.png "$stage/icon.png"
+cp assets/icon-clean.png "$stage/icon.png"
 cp bin/Release/WindRunDisplay.dll "$stage/plugins/"
 
 mkdir -p dist
