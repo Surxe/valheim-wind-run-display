@@ -1,0 +1,8 @@
+<!-- Copy to local.props (gitignored) and point GameRefs at a folder containing copies of
+     <Valheim>/valheim_Data/Managed/*.dll as Managed/ and <Valheim>/BepInEx/core/*.dll as
+     BepInEx-core/. -->
+<Project>
+  <PropertyGroup>
+    <GameRefs>/path/to/game-refs</GameRefs>
+  </PropertyGroup>
+</Project>

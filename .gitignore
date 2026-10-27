@@ -1,0 +1,11 @@
+bin/
+obj/
+*.user
+
+# Machine-specific: local paths/users, not part of the mod.
+local.props
+scripts/install-client.sh
+
+# Python venv for the icon scripts.
+.venv/
+dist/

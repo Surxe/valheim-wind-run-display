@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>WindRunDisplay</AssemblyName>
+    <RootNamespace>WindRunDisplay</RootNamespace>
+    <Version>1.0.0</Version>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <!-- assembly_valheim/assembly_utils reference newer System.IO.Compression and
+         System.Net.Http facades than netstandard2.1 ships; this mod uses neither. -->
+    <NoWarn>$(NoWarn);MSB3277</NoWarn>
+    <!-- ScriptEngine reads plugins with ReadSymbols=true and throws if the DLL points
+         at a .pdb that wasn't copied alongside it; embedding keeps it one file. -->
+    <DebugType>embedded</DebugType>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
+
+  <!-- GameRefs: a folder with copies of the game's DLLs as Managed/ and BepInEx-core/.
+       Set it per machine in local.props (gitignored; see local.props.example) or pass
+       -p:GameRefs=<dir>. -->
+  <Import Project="local.props" Condition="Exists('local.props')" />
+
+  <Target Name="CheckGameRefs" BeforeTargets="ResolveAssemblyReferences"
+          Condition="!Exists('$(GameRefs)/Managed/assembly_valheim.dll')">
+    <Error Text="GameRefs is not set or has no Managed/assembly_valheim.dll (GameRefs='$(GameRefs)'). Copy local.props.example to local.props and set it, or pass -p:GameRefs=&lt;dir&gt;." />
+  </Target>
+
+  <ItemGroup>
+    <Compile Remove="tests/**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="assembly_valheim" HintPath="$(GameRefs)/Managed/assembly_valheim.dll" Private="false" />
+    <Reference Include="UnityEngine" HintPath="$(GameRefs)/Managed/UnityEngine.dll" Private="false" />
+    <Reference Include="UnityEngine.CoreModule" HintPath="$(GameRefs)/Managed/UnityEngine.CoreModule.dll" Private="false" />
+    <Reference Include="UnityEngine.UI" HintPath="$(GameRefs)/Managed/UnityEngine.UI.dll" Private="false" />
+    <Reference Include="Unity.TextMeshPro" HintPath="$(GameRefs)/Managed/Unity.TextMeshPro.dll" Private="false" />
+    <Reference Include="BepInEx" HintPath="$(GameRefs)/BepInEx-core/BepInEx.dll" Private="false" />
+    <Reference Include="0Harmony" HintPath="$(GameRefs)/BepInEx-core/0Harmony.dll" Private="false" />
+  </ItemGroup>
+
+</Project>

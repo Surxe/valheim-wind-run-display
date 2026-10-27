@@ -1,0 +1,9 @@
+{
+  "name": "WindRunDisplay",
+  "version_number": "1.0.0",
+  "website_url": "https://github.com/Surxe/valheim-wind-run-display",
+  "description": "Shows the Asksvin cloak's live Wind run bonus under its status icon, from your heading vs. the wind. Configurable lines (run speed, run stamina, wind intensity), labels and font size. Client-side. Made by AI.",
+  "dependencies": [
+    "denikson-BepInExPack_Valheim-5.4.2350"
+  ]
+}
