@@ -3,7 +3,7 @@
 Client-side BepInEx mod for Valheim that shows how much the **Wind run** effect
 (Asksvin cloak) is currently giving you, based on wind direction and strength.
 
-[Thunderstore](https://thunderstore.io/c/valheim/p/Surxe/WindRunDisplay/) |
+[Thunderstore](https://thunderstore.io/c/valheim/p/Sur/WindRunDisplay/) |
 [GitHub](https://github.com/Surxe/valheim-wind-run-display)
 
 ![Wind run speed climbing from +0% to +25% as the player turns to run with the wind](https://raw.githubusercontent.com/Surxe/valheim-wind-run-display/main/docs/wind-run.gif)
@@ -32,7 +32,7 @@ assistant (Claude), directed and play-tested by the author.
 ## Install
 
 - **Mod manager:** install from
-  [Thunderstore](https://thunderstore.io/c/valheim/p/Surxe/WindRunDisplay/) with r2modman
+  [Thunderstore](https://thunderstore.io/c/valheim/p/Sur/WindRunDisplay/) with r2modman
   or the Thunderstore Mod Manager.
 - **Manual:** copy `WindRunDisplay.dll` into `<Valheim>/BepInEx/plugins/` and restart the
   game.
